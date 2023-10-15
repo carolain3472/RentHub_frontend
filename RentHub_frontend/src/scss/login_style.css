@@ -1,0 +1,74 @@
+.row-login {
+    width:fit-content;
+}
+
+.col-izq-login {
+  align-items: center;
+  background-color: #f0a500;
+  box-shadow: 5px 0px 20px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  text-align: center;
+  width: 100vw;
+}
+
+.titulo-login {
+    position: 0;
+}
+
+.col-der-login {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 50vw;
+}
+
+.btn-login {
+  background-color: #d88d00;
+  border-radius: 20px;
+  color: #fff;
+  transition: 1s ease background-color, 1s ease color;
+}
+
+.btn-login:hover {
+  background-color: #fdb417;
+  color: #000;
+}
+
+.registrarse {
+  color: #fff;
+  cursor: pointer;
+  margin-left: 2px;
+}
+
+.custom-input-email {
+  background-color: #fdb417;
+  background-image: url("/public/images/email.png"); /* Establece la imagen de fondo como tu icono */
+  background-repeat: no-repeat;
+  background-position: 5px center; /* Ajusta la posición horizontal del icono */
+  background-size: 20px 20px; /* Ajusta el tamaño de la imagen de fondo (ancho y alto) */
+  border-radius: 15px;
+  color: #fff;
+  margin-bottom: 10px;
+  padding-left: 30px; /* Ajusta el espacio a la izquierda para el icono */
+}
+
+.custom-input-password {
+  background-color: #fdb417;
+  background-image: url("/public/images/cerrar-con-llave.png"); /* Establece la imagen de fondo como tu icono */
+  background-repeat: no-repeat;
+  background-position: 5px center; /* Ajusta la posición horizontal del icono */
+  background-size: 20px 20px; /* Ajusta el tamaño de la imagen de fondo (ancho y alto) */
+  border-radius: 15px;
+  color: #fff;
+  margin-bottom: 10px;
+  padding-left: 30px; /* Ajusta el espacio a la izquierda para el icono */
+}
+.custom-input-email:focus,
+.custom-input-password:focus {
+  background-color: #fdb417;
+}
