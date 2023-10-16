@@ -57,9 +57,11 @@ export const Formulario = () => {
         // Cuando la solicitud es exitosa
         if (response.data.valid) {
           sessionStorage.setItem("email", email);
-          /* sessionStorage.setItem("email", response.data.user.email); */
+          sessionStorage.setItem("documento", response.data.user.documento);
+          console.log(sessionStorage.getItem("documento"))
+
           localStorage.setItem("authToken", response.data.token);
-          navigate("/");
+          navigate("/objetos_arrendamiento");
 
           Swal.fire({
             icon: "success",
