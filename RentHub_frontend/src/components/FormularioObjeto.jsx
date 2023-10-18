@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { appFirebase } from "../fb";
 import Swal from "sweetalert2";
 import { createobject } from "../api/objetcts_api";
+import "../scss/formulario_objeto_style.css";
 
 export function FormularioObjeto() {
   const [nombre, setNombre] = useState("");
@@ -16,10 +17,9 @@ export function FormularioObjeto() {
 
   const [archivoUrl, setArchivoUrl] = React.useState("");
 
-
   // ... (resto de tu código)
 
-/*   const guardarInfo = async (e) => {
+  /*   const guardarInfo = async (e) => {
     e.preventDefault();
 
     const objetoCreado = {
@@ -53,8 +53,6 @@ export function FormularioObjeto() {
     setArchivoUrl(enlaceUrl);
   };
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -70,7 +68,9 @@ export function FormularioObjeto() {
       console.log(response);
 
       const coleccionRef = appFirebase.firestore().collection("objetos");
-      const docu = coleccionRef.doc(nombre).set({nombre: nombre, url: archivoUrl});
+      const docu = coleccionRef
+        .doc(nombre)
+        .set({ nombre: nombre, url: archivoUrl });
       console.log("Archivo cargado:", nombre, "url:", archivoUrl);
 
       // Verifica la respuesta del backend
@@ -114,56 +114,73 @@ export function FormularioObjeto() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Nombre:</label>
+      <form onSubmit={handleSubmit} className="form-container">
+        <div className="form-group">
+          <label className="form-label">Nombre:</label>
           <input
+            className="form-input"
             type="text"
             id="nombre"
             value={nombre}
+            placeholder="Nombre del articulo"
             onChange={(e) => setNombre(e.target.value)}
           />
         </div>
         <div>
-          <label>Descripción:</label>
+          <label className="form-label">Descripción:</label>
           <input
+            className="form-input"
             type="text"
             id="descripcion"
             value={descripcion}
+            placeholder="Descripción del articulo"
             onChange={(e) => setDescripcion(e.target.value)}
           />
         </div>
         <div>
-          <label>Categoría:</label>
-          <input
-            type="text"
+          <label className="form-label">Categoría:</label>
+          <select
+            className="form-select"
             id="categoria"
             value={categoria}
             onChange={(e) => setCategoria(e.target.value)}
-          />
+          >
+            <option value="hogar">Hogar</option>
+            <option value="vehiculos">Vehículos</option>
+            <option value="construccion">Construcción</option>
+            <option value="entretenimiento">Entretenimiento</option>
+          </select>
         </div>
         <div>
-          <label>Precio de Arrendamiento:</label>
+          <label className="form-label">Precio de Arrendamiento:</label>
           <input
+            className="form-input"
             type="number"
             id="precio_arrendamiento"
             value={precio_arrendamiento}
+            placeholder="Precio del articulo x Unidad"
             onChange={(e) => setPrecioArrendamiento(e.target.value)}
           />
         </div>
         <div>
-          <label>Unidad de Arrendamiento:</label>
-          <input
-            type="text"
+          <label className="form-label">Unidad de Arrendamiento:</label>
+          <select
+            className="form-select"
             id="unidad_arrendamiento"
             value={unidad_arrendamiento}
             onChange={(e) => setUnidadArrendamiento(e.target.value)}
-          />
+          >
+            <option value="horas">Horas</option>
+            <option value="dias">Días</option>
+            <option value="semanas">Semanas</option>
+            <option value="meses">Meses</option>
+          </select>
         </div>
 
         <div>
-          <label>Imágenes:</label>
+          <label className="form-label">Imágenes:</label>
           <input
+            className="form-file-input"
             type="file"
             id="file"
             multiple
@@ -173,7 +190,7 @@ export function FormularioObjeto() {
           />
         </div>
 
-        <button type="submit">Guardar</button>
+        <button className="form-submit-button" type="submit">Guardar</button>
       </form>
     </div>
   );

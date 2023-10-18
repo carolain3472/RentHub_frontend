@@ -1,0 +1,52 @@
+/* Estilos generales para el formulario */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Estilos para cada grupo de formulario (label e input/select) */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Estilos para las etiquetas (labels) */
+.form-label {
+  color: #000;
+  margin-bottom: 5px;
+}
+
+/* Estilos para los campos de entrada (input y select) */
+.form-input,
+.form-select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  width: 100%;
+}
+
+.form-input:focus,
+.form-select:focus {
+  background-color: #f0a500;
+}
+
+/* Estilos para el campo de archivo (input tipo file) */
+.form-file-input {
+  border-radius: 5px;
+  border: 1px solid #000;
+  padding: 10px;
+  width: 100%;
+}
+
+/* Estilos para el botón de enviar (submit) */
+.form-submit-button {
+  background-color: #f0a500;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
