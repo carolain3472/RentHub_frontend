@@ -1,0 +1,39 @@
+.cards-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100vw;
+}
+
+.card-custom {
+  align-items: center;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 300px;
+}
+
+.body-custom {
+  border-top: 1px solid;
+  text-align: center;
+  width: 100%;
+}
+
+.menu-container {
+  background-color: antiquewhite;
+  border: 1px solid;
+}
+
+.menu-item {
+  text-decoration: underline #f0a500;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: #a3a3a3; /* Color de fondo al pasar el mouse por encima */
+    color: #fff;
+  }
+}
