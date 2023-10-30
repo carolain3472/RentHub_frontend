@@ -52,7 +52,7 @@ export const Formulario = () => {
     // Realiza una solicitud POST al servidor para el inicio de sesión
     axios;
     api
-      .post("/login/login_view/", { email, password })
+      .post("/login/login/", { email, password })
       .then((response) => {
         // Cuando la solicitud es exitosa
         if (response.data.valid) {
