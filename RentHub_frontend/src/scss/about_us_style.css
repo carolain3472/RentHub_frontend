@@ -1,0 +1,77 @@
+.content-container-aboutus {
+  height: auto;
+}
+
+.title-section {
+  margin-top: 65px;
+}
+.title-about-us {
+  margin-top: 63.19px;
+}
+
+.about-us-izq {
+  width: 50vw;
+  margin-left: 1em;
+}
+
+.about-us-izq h1 {
+  color: #f0a500;
+  font-weight: bold;
+
+  text-align: left;
+}
+.about-us-der {
+  width: 50vw;
+  margin-right: 1em;
+}
+
+.about-us-der h1 {
+  text-align: right;
+}
+
+.about-us-grey {
+  color: grey;
+}
+
+.about-us-gold {
+  color: #f0a500;
+}
+
+.img-container-about-us {
+  width: 100vw;
+}
+
+.about-us-img {
+  height: auto;
+}
+
+.info-div {
+  margin-top: 2em;
+}
+
+.info-izq {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50vw;
+}
+
+.info-der {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50vw;
+}
+
+.title-info {
+  color: #f0a500;
+  font-weight: 700;
+}
+
+.parag-info {
+    text-align: justify;
+    font-size: 1.5rem;
+    padding: 0 8em 0 8em;
+}
