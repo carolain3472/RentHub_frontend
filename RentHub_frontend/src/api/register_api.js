@@ -12,3 +12,7 @@ export const createuser = (nombre, apellido, documento, email, password) => {
 export const updateContra = (email, password) => {
   return api.post('/login/update_contra/', { email, password });
 };
+
+export const logout = (refresh_token) => {
+  return api.post('/login/logout/', { refresh_token });
+};

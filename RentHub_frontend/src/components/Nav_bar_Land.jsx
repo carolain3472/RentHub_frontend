@@ -78,6 +78,7 @@ export function Nav_bar() {
           </a>
         </div>
       </nav>
+      
     </>
   );
 }

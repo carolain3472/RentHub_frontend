@@ -109,9 +109,10 @@ export function FormularioArrendamiento(props) {
           />
         </div>
         <div>
-          <label className="form-label">Unidad de Arrendamiento:</label>
+          <label for="unidad_arrendamiento" className="form-label">Unidad de Arrendamiento:</label>
           <select
             className="form-select"
+            name="unidad_arrendamiento"
             id="unidad_arrendamiento"
             value={unidad_arrendamiento}
             onChange={(e) => setUnidadArrendamiento(e.target.value)}
