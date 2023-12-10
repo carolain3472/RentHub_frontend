@@ -61,6 +61,7 @@ export const Formulario = () => {
           sessionStorage.setItem("documento", response.data.documento);
           sessionStorage.setItem("nombre", response.data.nombre);
           sessionStorage.setItem("apellido", response.data.apellido);
+          sessionStorage.setItem("refresh", response.data.refresh);
           console.log(sessionStorage.getItem("documento"))
 
           localStorage.setItem("authToken", response.data.token);

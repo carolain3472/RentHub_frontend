@@ -13,9 +13,9 @@ export function FormularioObjeto() {
   const [imagen, setImagen] = useState("");
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [categoria, setCategoria] = useState("");
+  const [categoria, setCategoria] = useState("Hogar");
   const [precio_arrendamiento, setPrecioArrendamiento] = useState("");
-  const [unidad_arrendamiento, setUnidadArrendamiento] = useState("");
+  const [unidad_arrendamiento, setUnidadArrendamiento] = useState('Horas');
   const documento = sessionStorage.getItem("documento");
 
   const [archivoUrl, setArchivoUrl] = React.useState("");
@@ -143,17 +143,18 @@ export function FormularioObjeto() {
           />
         </div>
         <div>
-          <label className="form-label">Categoría:</label>
+          <label htmlFor="categoria" className="form-label">Categoría:</label>
           <select
             className="form-select"
+            name="categoria"
             id="categoria"
             value={categoria}
             onChange={(e) => setCategoria(e.target.value)}
           >
-            <option value="hogar">Hogar</option>
-            <option value="vehiculos">Vehículos</option>
-            <option value="construccion">Construcción</option>
-            <option value="entretenimiento">Entretenimiento</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Vehiculos">Vehículos</option>
+            <option value="Construccion">Construcción</option>
+            <option value="Entretenimiento">Entretenimiento</option>
           </select>
         </div>
         <div>
@@ -168,17 +169,18 @@ export function FormularioObjeto() {
           />
         </div>
         <div>
-          <label className="form-label">Unidad de Arrendamiento:</label>
+          <label htmlFor="unidad_arrendamiento" className="form-label">Unidad de Arrendamiento:</label>
           <select
             className="form-select"
+            name="unidad_arrendamiento"
             id="unidad_arrendamiento"
             value={unidad_arrendamiento}
             onChange={(e) => setUnidadArrendamiento(e.target.value)}
           >
-            <option value="horas">Horas</option>
-            <option value="dias">Días</option>
-            <option value="semanas">Semanas</option>
-            <option value="meses">Meses</option>
+            <option value="Horas">Horas</option>
+            <option value="Dias">Días</option>
+            <option value="Semanas">Semanas</option>
+            <option value="Meses">Meses</option>
           </select>
         </div>
 
