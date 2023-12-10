@@ -9,46 +9,13 @@ import Swal from "sweetalert2";
 //import { createobject } from "../api/objetcts_api";
 import "../scss/formulario_objeto_style.css";
 
-export function FormularioObjeto() {
-  const [imagen, setImagen] = useState("");
-  const [nombre, setNombre] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [categoria, setCategoria] = useState("");
-  const [precio_arrendamiento, setPrecioArrendamiento] = useState("");
+export function FormularioArrendamiento(props) {
+  const [tiempo_arrendamiento, setTiempoArrendamiento] = useState("");
   const [unidad_arrendamiento, setUnidadArrendamiento] = useState("");
-  const documento = sessionStorage.getItem("documento");
 
-  const [archivoUrl, setArchivoUrl] = React.useState("");
-
-  // ... (resto de tu código)
-
-  /*   const guardarInfo = async (e) => {
-    e.preventDefault();
-
-    const objetoCreado = {
-      nombre: nombre,
-      imagen: imagenURL, // Usamos la URL de la imagen aquí
-    };
-
-    // Función de guardado
-
+  const arrendarobject = async (formData) => {
     try {
-      // Agregar un documento a Firestore con nombre e imagen
-      await addDoc(objetoCollectionRef, objetoCreado);
-    } catch (error) {
-      console.log(error);
-    }
-  }; */
-
-  const fileHandler = async (e) => {
-    const archivoI = e.target.files[0];
-    setImagen(archivoI);
-  };
-  
-  
-  const createobject = async (formData) => {
-    try {
-      const response = await api.post('/objetos/crear_objeto/', formData, {
+      const response = await api.post('/objetos/arrendar-objeto/', formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -59,22 +26,19 @@ export function FormularioObjeto() {
       throw error; // Puedes manejar el error según tus necesidades
     }
   };
-  
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
 
       const formData = new FormData();
-      formData.append("documento", documento);
-      formData.append("nombre", nombre);
-      formData.append("descripcion", descripcion);
-      formData.append("categoria", categoria);
-      formData.append("precio_arrendamiento", precio_arrendamiento);
-      formData.append("unidad_arrendamiento", unidad_arrendamiento);
-      formData.append("imagen", imagen); 
+      formData.append("objeto_arrendado", props.selectedObject.id);
+      formData.append("arrendador_cedula", sessionStorage.getItem("documento"));
+      formData.append("cantidad_tiempo_arrendamiento", tiempo_arrendamiento);
+      formData.append("unidad_tiempo_arrendamiento", unidad_arrendamiento);
+
       // Realiza la llamada al backend
-      const response = await createobject(formData);
+      const response = await arrendarobject(formData);
 
       console.log(response);
 
@@ -121,50 +85,27 @@ export function FormularioObjeto() {
     <div>
       <form onSubmit={handleSubmit} className="form-container">
         <div className="form-group">
-          <label className="form-label">Nombre:</label>
+          <label className="form-label">Objeto:</label>
           <input
             className="form-input"
             type="text"
             id="nombre"
-            value={nombre}
-            placeholder="Nombre del articulo"
-            onChange={(e) => setNombre(e.target.value)}
+            
+            placeholder={props.selectedObject.nombre}
+            
           />
         </div>
+
+
         <div>
-          <label className="form-label">Descripción:</label>
-          <input
-            className="form-input"
-            type="text"
-            id="descripcion"
-            value={descripcion}
-            placeholder="Descripción del articulo"
-            onChange={(e) => setDescripcion(e.target.value)}
-          />
-        </div>
-        <div>
-          <label className="form-label">Categoría:</label>
-          <select
-            className="form-select"
-            id="categoria"
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-          >
-            <option value="hogar">Hogar</option>
-            <option value="vehiculos">Vehículos</option>
-            <option value="construccion">Construcción</option>
-            <option value="entretenimiento">Entretenimiento</option>
-          </select>
-        </div>
-        <div>
-          <label className="form-label">Precio de Arrendamiento:</label>
+          <label className="form-label">Cantidad de tiempo de Arrendamiento:</label>
           <input
             className="form-input"
             type="number"
-            id="precio_arrendamiento"
-            value={precio_arrendamiento}
+            id="tiempo_arrendamiento"
+            value={tiempo_arrendamiento}
             placeholder="Precio del articulo x Unidad"
-            onChange={(e) => setPrecioArrendamiento(e.target.value)}
+            onChange={(e) => setTiempoArrendamiento(e.target.value)}
           />
         </div>
         <div>
@@ -182,20 +123,7 @@ export function FormularioObjeto() {
           </select>
         </div>
 
-        <div>
-          <label className="form-label">Imágenes:</label>
-          <input
-            className="form-file-input"
-            type="file"
-            id="file"
-            multiple
-            accept="image/*"
-            placeholder="Agregar imagen"
-            onChange={fileHandler}
-          />
-        </div>
-
-        <button className="form-submit-button" type="submit">Guardar</button>
+        <button className="form-submit-button" type="submit">Arrendar</button>
       </form>
     </div>
   );

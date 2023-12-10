@@ -7,6 +7,7 @@ import "../scss/pagina_inicial_style.css";
 import "../scss/nav_bar_objetos_style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import { FormularioArrendamiento } from "../components/Formulario_arrendamiento";
 
 /**
  * Plantilla de inicio de sesión.
@@ -20,32 +21,38 @@ export function Pagina_inicial_page() {
 
   const [show, setShow] = useState(false);
 
+  const [showArrendar, setShowArrendar] = useState(false);
+  const [selectedObject, setSelectedObject] = useState(null);
+
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleCloseArrendar = () => setShowArrendar(false);
+
+  const handleShowArrendar = (objeto) => {
+    setSelectedObject(objeto);
+    setShowArrendar(true);
+    console.log(objeto)
+  };
+  
 
   const nombre = sessionStorage.getItem("nombre");
   const apellido = sessionStorage.getItem("apellido");
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const docusList = await appFirebase
-          .firestore()
-          .collection("objetos")
-          .get();
-        setDocus(docusList.docs.map((doc) => doc.data()));
-
-        listobject().then((response) => {
-          setObjetos(response.data);
-        });
+        const response = await listobject();
+        setObjetos(response.data);
       } catch (error) {
         console.error("Error al obtener datos:", error);
       }
     };
-
+  
     fetchData();
   }, []);
-
   return (
     <main>
       <nav className="navbar navbar-expand-lg custom-navbar-objetos fixed-top">
@@ -112,25 +119,9 @@ export function Pagina_inicial_page() {
         <div className="row cards-container">
           {objetos.map((objeto) => (
             <div key={objeto.id} className="col-md">
-              {" "}
-              {/* Controla el número de columnas en función del tamaño de la pantalla */}
-              <div className="card card-custom">
-                {docus.map((doc) => {
-                  if (doc.nombre === objeto.nombre) {
-                    return (
-                      <img
-                        key={doc.id}
-                        src={doc.url}
-                        height={300}
-                        width={240}
-                        alt=""
-                      />
-                    );
-                  }
-                  return null; // Esto evita que renderice imágenes no coincidentes
-                })}
-                <img className="img-custom" src="" alt="" srcSet="" />
-                <div className="body body-custom">
+            <div className="card card-custom">
+                  <img src={objeto.objeto_imagen} height={300} width={240} alt="" />
+                  <div className="body body-custom">
                   <h5 className="card-title">{objeto.nombre}</h5>
                   <p className="card-text">{objeto.descripcion}</p>
                 </div>
@@ -149,6 +140,15 @@ export function Pagina_inicial_page() {
                   <a href="#" className="card-link">
                     Propietari@: {nombre} {apellido}
                   </a>
+                </div>
+
+                <div>
+                <button
+                  className="btn btn-success"
+                  onClick={() => handleShowArrendar(objeto)}
+                >
+                  <i className="fa-solid fa-pencil-square"></i> Arrendar
+                </button>
                 </div>
               </div>
             </div>
@@ -169,6 +169,21 @@ export function Pagina_inicial_page() {
           </Button>
         </Modal.Footer>
       </Modal>
-    </main>
-  );
+  
+
+  <Modal show={showArrendar} onHide={handleCloseArrendar}>
+  <Modal.Header closeButton>
+    <Modal.Title>¿Cómo deseas arrendarlo?</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+  <FormularioArrendamiento selectedObject={selectedObject} />
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={handleCloseArrendar}>
+      Cerrar
+    </Button>
+  </Modal.Footer>
+</Modal>
+</main>
+);
 }

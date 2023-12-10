@@ -52,14 +52,15 @@ export const Formulario = () => {
     // Realiza una solicitud POST al servidor para el inicio de sesión
     axios;
     api
-      .post("/login/login/", { email, password })
+      .post("/login/login/", { "email": email, "password":password })
       .then((response) => {
+        console.log("Al menos aqui entra")
         // Cuando la solicitud es exitosa
-        if (response.data.valid) {
+        if (response.status === 200) {
           sessionStorage.setItem("email", email);
-          sessionStorage.setItem("documento", response.data.user.documento);
-          sessionStorage.setItem("nombre", response.data.user.nombre);
-          sessionStorage.setItem("apellido", response.data.user.apellido);
+          sessionStorage.setItem("documento", response.data.documento);
+          sessionStorage.setItem("nombre", response.data.nombre);
+          sessionStorage.setItem("apellido", response.data.apellido);
           console.log(sessionStorage.getItem("documento"))
 
           localStorage.setItem("authToken", response.data.token);
