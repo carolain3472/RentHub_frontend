@@ -7,6 +7,11 @@ import {Contact_us_page} from './pages/contact_us_page'
 import { Login_page } from './pages/login_page'
 import { Register_page } from './pages/register_page'
 import { Pagina_inicial_page } from './pages/pagina_inicial_page'
+import {ConfiguracionPage} from './pages/configuracion_page'
+import { Objetos_usuario_page } from './pages/objetos_usuario_page'
+import { Objetos_arrendados_page } from './pages/objetos_arrendados'
+import { Objetos_adquiridos_page } from './pages/objetos_adquiridos'
+
 
 /**Como crear rutas  
  * Importacion
@@ -27,6 +32,14 @@ function App() {
       <Route path='/about-us' element ={<About_us_page/>} />
       <Route path='/contact-us' element ={<Contact_us_page/>} />
       <Route path='/objetos_arrendamiento' element ={<Pagina_inicial_page/>} />
+      <Route path='/configuracion_perfil' element ={<ConfiguracionPage/>} />
+      <Route path='/objetos_propiertario' element ={<Objetos_usuario_page/>} />
+      <Route path='/objetos_arrendados' element ={<Objetos_arrendados_page/>} />
+      <Route path='/objetos_adquiridos' element ={<Objetos_adquiridos_page/>} />
+      
+      
+
+    
     </Routes>
 
   </BrowserRouter>
