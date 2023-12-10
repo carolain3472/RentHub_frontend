@@ -14,10 +14,10 @@ import Swal from "sweetalert2";
 export function Register_form() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [nombre, setName] = useState("");
   const [apellido, setApellido] = useState("");
   const [documento, setDocumento] = useState("");
-  const [contrasena, setContrasena] = useState("");
+  const [password, setContrasena] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   /**
@@ -65,16 +65,21 @@ export function Register_form() {
     try {
       // Realiza la llamada al backend
       const response = await createuser(
-        name,
+        nombre,
         apellido,
         documento,
         email,
-        contrasena
+        password
       );
       console.log(response);
       // Verifica la respuesta del backend
       if (response.status === 200) {
-        console.log(response.data);
+        console.log(response.data.password);
+        console.log(response.data.nombre);
+        console.log(nombre);
+        console.log(apellido);
+        console.log(documento);
+        console.log(password);
         console.log("entro aqui exito");
         // Si la respuesta indica éxito, muestra una notificación de éxito
         Swal.fire({
@@ -93,10 +98,12 @@ export function Register_form() {
       } else {
         // Si la respuesta indica un error, muestra una notificación de error
         Swal.fire("Error", "Hubo un problema al guardar los datos", "error");
-        console.log(name);
+        console.log(response.data.password);
+        console.log(response.data.nombre);
+        console.log(nombre);
         console.log(apellido);
         console.log(documento);
-        console.log(contrasena);
+        console.log(password);
       }
     } catch (error) {
       // Si ocurre un error en la llamada al backend, muestra una notificación de error
@@ -166,7 +173,7 @@ export function Register_form() {
                   <input
                     type="text"
                     className="form-control custom-input-name"
-                    value={name}
+                    value={nombre}
                     onChange={handleNameChange}
                     id="username"
                     placeholder="Ingresa tu nombre"
@@ -210,7 +217,7 @@ export function Register_form() {
                   <input
                     type="password"
                     className="form-control custom-input-password"
-                    value={contrasena}
+                    value={password}
                     onChange={handlePasswordChange}
                     id="password"
                     placeholder="Ingresa tu contraseña"
