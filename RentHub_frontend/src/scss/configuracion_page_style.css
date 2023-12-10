@@ -1,0 +1,44 @@
+.cont-form-datos {
+    background-color: #906404;
+    border: 1px solid;
+    padding: 2em;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-size: 1.5em;
+}
+
+.cont-datos {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+}
+
+.cont-datos a {
+    margin: 0.6em;
+}
+
+.formUpdatePass {
+    display: flex;
+    flex-direction: column;
+}
+
+.formUpdatePass input {
+    border: none;
+    margin-top: 10px;
+}
+
+.formUpdatePass button {
+    margin-top: 10px;
+    transition: 0.7s ease background-color;
+}
+
+.formUpdatePass button:hover {
+    background-color: #f0a500;
+    border: none;
+}
+
+.volverAtras {
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px;
+}
