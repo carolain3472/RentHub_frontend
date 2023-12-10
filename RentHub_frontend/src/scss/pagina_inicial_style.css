@@ -1,9 +1,9 @@
-.cards-container {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100vw;
+.botones-Eliminar-Modificar button{
+  margin: 10px;
+  width: 7em;
+}
+.row {
+  margin-right: 0; /* Elimina el margen derecho predeterminado de la fila */
 }
 
 .card-custom {
