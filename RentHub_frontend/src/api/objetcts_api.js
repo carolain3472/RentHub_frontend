@@ -32,3 +32,10 @@ export const listobjectadquirido = async () => {
   return api.post('/objetos/listar-objetos-adquiridos/', { documento });
   
 };
+
+export const listobjectsarrendados= async () => {
+  const documento = sessionStorage.getItem("documento");
+  console.log(documento)
+  return api.post('/objetos/listar-objetos-arrendados/', { documento });
+  
+};
