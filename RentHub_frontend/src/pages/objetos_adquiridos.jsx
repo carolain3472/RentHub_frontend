@@ -17,14 +17,162 @@ export function Objetos_adquiridos_page() {
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setModalMessage(""); // Limpiar el mensaje del modal al cerrarlo
+  };
+
   const handleShow = () => setShow(true);
 
   const nombre = sessionStorage.getItem("nombre");
   const apellido = sessionStorage.getItem("apellido");
   const [selectedObject, setSelectedObject] = useState(null);
+  const [modalMessage, setModalMessage] = useState(""); // Nuevo estado para el mensaje del modal
 
-  const handleEliminar = (objeto) => {
+  const handleShowConsulta = (objeto) => {
+    informacion_consulta(objeto);
+    setSelectedObject(objeto);
+    handleShow();  // Llama a handleShow sin argumentos
+    console.log(objeto);
+    console.log(modalMessage)
+  };
+
+  const aceptar_entrega = async (objeto) => {
+
+      const formData = new FormData();
+      formData.append("documento", sessionStorage.getItem("documento"));
+      formData.append("objeto_id", objeto.objeto_arrendado.id);
+
+      // Realiza la llamada al backend
+      const response = await api.post("/objetos/aceptar-entrega-cliente/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 200) {
+
+        Swal.fire({
+          icon: "success",
+          title: "Operación exitosa",
+          text: "Se ha aceptado que el objeto está en tu residencia",
+          showConfirmButton: false,
+          allowOutsideClick: false,
+          showCancelButton: false,
+          timer: 2000,
+        }).then(() => {
+          window.location.reload();
+        });
+      } else {
+        
+        Swal.fire("Error", "Hubo con la acción, vuelve a intentarlo nuevamente", "error");
+      }
+      
+    };
+
+    const devolver_objeto = async (objeto) => {
+
+      const formData = new FormData();
+      formData.append("documento", sessionStorage.getItem("documento"));
+      formData.append("objeto_id", objeto.objeto_arrendado.id);
+
+      // Realiza la llamada al backend
+      const response = await api.post("/objetos/enviar-propietario-devolucion/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+            // Verifica la respuesta del backend
+            if (response.status === 200) {
+
+              Swal.fire({
+                icon: "success",
+                title: "Operación exitosa",
+                text: "Se ha devuelto el objeto correctamente",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                showCancelButton: false,
+                timer: 2000,
+              }).then(() => {
+                window.location.reload();
+              });
+            } else {
+              
+              Swal.fire("Error", "Hubo un problema al devolver el objeto", "error");
+            }
+    };
+  
+
+  const informacion_consulta = async (objeto) => {
+    try {
+      const formData = new FormData();
+      formData.append("documento", sessionStorage.getItem("documento"));
+      formData.append("objeto_id", objeto.objeto_arrendado.id);
+
+      // Realiza la llamada al backend
+      const response = await api.post("/objetos/consulta-cliente-objeto/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      // Verifica la respuesta del backend
+      if (response.status === 201) {
+        setModalMessage("El propietario envió el objeto a tu residencia, por favor confirma cuando esté haya llegado");
+      } else if (response.status === 202) {
+        setModalMessage("Ya llegó el objeto nuevamente al propietario");
+      } else if (response.status === 207) {
+        setModalMessage("Cuando finalices de usar el objeto, envia por favor el registro de que ya fue devuelto.");
+      }
+
+
+    } catch (error) {
+      setModalMessage("En este momento, el propietario está revisando la solicitud para hacer el envío del objeto");
+      // Manejar errores aquí
+    }
+  };
+  
+
+
+  const handleAceptarEntrega = (objeto) => {
+    // Abre un modal de confirmación
+    Swal.fire({
+      title: "¿El objeto ya llegó a tu residencia?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sí, aceptar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        aceptar_entrega(objeto);
+      }
+    });
+  };
+
+  const handleDevolverObjeto = (objeto) => {
+    // Abre un modal de confirmación
+    Swal.fire({
+      title: "¿Deseas devolver el objeto?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sí, devolver",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        devolver_objeto(objeto);
+      }
+    });
+  };
+
+
+
+
+  const handleCancelar = (objeto) => {
     // Abre un modal de confirmación
     Swal.fire({
       title: "¿Estás seguro?",
@@ -33,23 +181,23 @@ export function Objetos_adquiridos_page() {
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar",
+      confirmButtonText: "Sí, cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         // Si el usuario confirma, realiza la eliminación
-        eliminarObjeto(objeto);
+        cancelar_arrendamiento(objeto);
       }
     });
   };
 
-  const eliminarObjeto = async (objeto) => {
+  const cancelar_arrendamiento = async (objeto) => {
     try {
       const formData = new FormData();
       formData.append("documento", sessionStorage.getItem("documento"));
-      formData.append("objeto_id", objeto.id);
+      formData.append("objeto_id", objeto.objeto_arrendado.id);
 
       // Realiza la llamada al backend
-      const response = await api.post("/objetos/eliminar-objeto/", formData, {
+      const response = await api.post("/objetos/cancelar-arrendamiento/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -63,7 +211,7 @@ export function Objetos_adquiridos_page() {
         Swal.fire({
           icon: "success",
           title: "Operación exitosa",
-          text: "Se ha eliminado el objeto correctamente",
+          text: "Se ha cancelado el arrendamiento con éxito",
           showConfirmButton: false,
           allowOutsideClick: false,
           showCancelButton: false,
@@ -72,9 +220,9 @@ export function Objetos_adquiridos_page() {
           // Recarga la página después de 2 segundos
           window.location.reload();
         });
-      } else {
+      } else if (response.status === 400) {
         // Muestra una notificación de error
-        Swal.fire("Error", "Hubo un problema al eliminar el objeto", "error");
+        Swal.fire("Error", "No se puede cancelar el arrendamiento debido a que ya se envió el objeto", "error");
       }
     } catch (error) {
       // Muestra una notificación de error
@@ -117,7 +265,7 @@ export function Objetos_adquiridos_page() {
           }}
         >
           <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
-            Objetos adquiridos
+            Objetos que tienes arrendados
           </h1>
 
           <div className="container-fluid d-flex justify-content-center align-items-center">
@@ -126,7 +274,7 @@ export function Objetos_adquiridos_page() {
                 <div key={objeto.id} className="col-2 mb-4">
                   <div className="card card-custom">
                     <img
-                      src={objeto.objeto_imagen}
+                      src={objeto.objeto_arrendado.objeto_imagen}
                       height={300}
                       width={240}
                       alt=""
@@ -155,13 +303,12 @@ export function Objetos_adquiridos_page() {
                     <div className="card-body botones-Eliminar-Modificar">
                       <button
                         className="btn btn-danger"
-                        onClick={() => handleEliminar(objeto)}
+                        onClick={() => handleCancelar(objeto)}
                       >
                         <i className="fa-solid fa-trash-can"></i> Cancelar
-                        arrendamiento
                       </button>
-                      <button className="btn btn-warning">
-                        <i className="fa-solid fa-pencil-square"></i> Modificar
+                      <button className="btn btn-primary"  onClick={() => handleShowConsulta(objeto)}>
+                        <i className="fa-solid fa-pencil-square"></i> +
                       </button>
                     </div>
                   </div>
@@ -170,6 +317,33 @@ export function Objetos_adquiridos_page() {
             </div>
           </div>
         </section>
+
+        <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Estado de la Consulta</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{modalMessage}</p>
+        
+        </Modal.Body>
+        <Modal.Footer>
+          {modalMessage === "El propietario envió el objeto a tu residencia, por favor confirma cuando esté haya llegado" && (
+            <Button variant="primary" onClick={() => handleAceptarEntrega(selectedObject)} >
+              Ya llegó el objeto
+            </Button>
+          )}
+
+          {modalMessage === "Cuando finalices de usar el objeto, envia por favor el registro de que ya fue devuelto." && (
+            <Button variant="primary" onClick={() => handleDevolverObjeto(selectedObject)}>
+              Devolver el objeto
+            </Button>
+          )}
+          <Button variant="secondary" onClick={handleClose}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       </main>
     </>
   );
