@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Dropdown } from "react-bootstrap";
-import { FormularioObjeto } from "../components/FormularioObjeto";
+import { Formulario_modificar } from "../components/Formulario_modificar";
 import { listobjectuser } from "../api/objetcts_api";
 import Swal from "sweetalert2";
 import { api } from "../api/register_api";
@@ -14,15 +14,19 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 export function Objetos_usuario_page() {
   const [objetos, setObjetos] = useState([]);
   const [docus, setDocus] = React.useState([]);
+  const nombre = sessionStorage.getItem("nombre");
+  const apellido = sessionStorage.getItem("apellido");
+  const [selectedObject, setSelectedObject] = useState(null);
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (objeto) => {
+    setSelectedObject(objeto);
+    setShow(true);
+    console.log(objeto);
+  };
 
-  const nombre = sessionStorage.getItem("nombre");
-  const apellido = sessionStorage.getItem("apellido");
-  const [selectedObject, setSelectedObject] = useState(null);
 
   const handleEliminar = (objeto) => {
     // Abre un modal de confirmación
@@ -120,7 +124,7 @@ export function Objetos_usuario_page() {
         <div className="container-fluid d-flex justify-content-center align-items-center">
           <div className="row justify-content-start">
             {objetos.map((objeto) => (
-              <div key={objeto.id} className="col-2 mb-4">
+              <div key={objeto.id} className="col-2 md-3 mb-4">
                 <div className="card card-custom">
                   <img
                     src={objeto.objeto_imagen}
@@ -150,7 +154,7 @@ export function Objetos_usuario_page() {
                     >
                       <i className="fa-solid fa-trash-can"></i> Eliminar
                     </button>
-                    <button className="btn btn-warning">
+                    <button className="btn btn-warning" onClick={() => handleShow(objeto)}>
                       <i className="fa-solid fa-pencil-square"></i> Modificar
                     </button>
                   </div>
@@ -163,10 +167,10 @@ export function Objetos_usuario_page() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>¿Qué quieres alquilar?</Modal.Title>
+          <Modal.Title>Modifica tu objeto</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormularioObjeto />
+          <Formulario_modificar selectedObject={selectedObject} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

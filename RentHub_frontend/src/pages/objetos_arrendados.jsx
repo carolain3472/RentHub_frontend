@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Dropdown } from "react-bootstrap";
 import { FormularioObjeto } from "../components/FormularioObjeto";
-import { listobjectuser } from "../api/objetcts_api";
+import { listobjectsarrendados } from "../api/objetcts_api";
 import Swal from "sweetalert2";
 import { api } from "../api/register_api";
 import { Nav_bar_inicio } from "../components/Nav_bar_inicio";
@@ -14,85 +14,128 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 export function Objetos_arrendados_page() {
   const [objetos, setObjetos] = useState([]);
   const [docus, setDocus] = React.useState([]);
-
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const nombre = sessionStorage.getItem("nombre");
   const apellido = sessionStorage.getItem("apellido");
   const [selectedObject, setSelectedObject] = useState(null);
 
-  const handleEliminar = (objeto) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+
+  const handleShow = (objeto) => {
+    setSelectedObject(objeto);
+    setShow(true);
+    console.log(objeto);
+  };
+
+
+
+  const handleEnviarObjeto = (objeto) => {
     // Abre un modal de confirmación
     Swal.fire({
-      title: "¿Estás seguro?",
+      title: "¿Estás seguro que deseas enviar el objeto?",
       text: "Esta acción no se puede deshacer",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar",
+      confirmButtonText: "Sí, enviar",
     }).then((result) => {
       if (result.isConfirmed) {
         // Si el usuario confirma, realiza la eliminación
-        eliminarObjeto(objeto);
+        enviarObjeto(objeto);
       }
     });
   };
 
-  const eliminarObjeto = async (objeto) => {
-    try {
-      const formData = new FormData();
-      formData.append("documento", sessionStorage.getItem("documento"));
-      formData.append("objeto_id", objeto.id);
 
-      // Realiza la llamada al backend
-      const response = await api.post("/objetos/eliminar-objeto/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+  const enviarObjeto = async (objeto) => {
 
-      // Verifica la respuesta del backend
-      if (response.status === 200) {
-        console.log(response.data);
+    const formData = new FormData();
+    formData.append("documento", sessionStorage.getItem("documento"));
+    formData.append("objeto_id", objeto.objeto_arrendado.id);
 
-        // Muestra una notificación de éxito
-        Swal.fire({
-          icon: "success",
-          title: "Operación exitosa",
-          text: "Se ha eliminado el objeto correctamente",
-          showConfirmButton: false,
-          allowOutsideClick: false,
-          showCancelButton: false,
-          timer: 2000,
-        }).then(() => {
-          // Recarga la página después de 2 segundos
-          window.location.reload();
-        });
-      } else {
-        // Muestra una notificación de error
-        Swal.fire("Error", "Hubo un problema al eliminar el objeto", "error");
-      }
-    } catch (error) {
-      // Muestra una notificación de error
-      Swal.fire({
-        icon: "error",
-        title: "Hubo un error al eliminar el objeto",
-        text: "Verifica la información suministrada",
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        showCancelButton: false,
-        timer: 3000,
-      });
+    // Realiza la llamada al backend
+    const response = await api.post("/objetos/confirmacion-entrega-cliente-envio/", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+          if (response.status === 200) {
+
+            Swal.fire({
+              icon: "success",
+              title: "Operación exitosa",
+              text: "Se ha enviado el objeto correctamente",
+              showConfirmButton: false,
+              allowOutsideClick: false,
+              showCancelButton: false,
+              timer: 2000,
+            }).then(() => {
+              window.location.reload();
+            });
+          } else {
+            
+            Swal.fire("Error", "Hubo un problema al enviar el objeto", "error");
+          }
+};
+
+const handleAceptarDevolucion = (objeto) => {
+  // Abre un modal de confirmación
+  Swal.fire({
+    title: "¿Estás seguro que el objeto ya llegó a su residencia?",
+    text: "Esta acción no se puede deshacer",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Sí, aceptar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Si el usuario confirma, realiza la eliminación
+      aceptarDevolucion(objeto);
     }
-  };
+  });
+};
+
+
+const aceptarDevolucion = async (objeto) => {
+
+  const formData = new FormData();
+  formData.append("documento", sessionStorage.getItem("documento"));
+  formData.append("objeto_id", objeto.objeto_arrendado.id);
+
+  // Realiza la llamada al backend
+  const response = await api.post("/objetos/aceptacion-propietario-devolucion/", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+        if (response.status === 200) {
+
+          Swal.fire({
+            icon: "success",
+            title: "Operación exitosa",
+            text: "Se ha aceptado el objeto devuelta",
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            showCancelButton: false,
+            timer: 2000,
+          }).then(() => {
+            window.location.reload();
+          });
+        } else {
+          
+          Swal.fire("Error", "Hubo un problema al aceptar el objeto", "error");
+        }
+};
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await listobjectuser();
+        const response = await listobjectsarrendados();
         setObjetos(response.data);
       } catch (error) {
         console.error("Error al obtener datos:", error);
@@ -115,7 +158,7 @@ export function Objetos_arrendados_page() {
         }}
       >
         <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
-          Objetos arrendados
+          Objetos que personas me han arrendado
         </h1>
 
         <div className="container-fluid d-flex justify-content-center align-items-center">
@@ -124,36 +167,48 @@ export function Objetos_arrendados_page() {
               <div key={objeto.id} className="col-2 mb-4">
                 <div className="card card-custom">
                   <img
-                    src={objeto.objeto_imagen}
+                    src={objeto.objeto_arrendado.objeto_imagen}
                     height={300}
                     width={240}
                     alt=""
                   />
                   <div className="body body-custom">
-                    <h5 className="card-title">{objeto.nombre}</h5>
-                    <p className="card-text">{objeto.descripcion}</p>
+                    <h5 className="card-title">{objeto.objeto_arrendado.nombre}</h5>
+                    <p className="card-text">{objeto.objeto_arrendado.descripcion}</p>
                   </div>
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item">
-                      Categoría: {objeto.categoria}
+                      Categoría: {objeto.objeto_arrendado.categoria}
                     </li>
                     <li className="list-group-item">
-                      Precio de Arrendamiento: ${objeto.precio_arrendamiento}
+                      Precio de Arrendamiento: ${objeto.objeto_arrendado.precio_arrendamiento}
                     </li>
                     <li className="list-group-item">
-                      Unidad de Arrendamiento: {objeto.unidad_arrendamiento}
+                      Unidad de Arrendamiento: {objeto.objeto_arrendado.unidad_arrendamiento}
                     </li>
                   </ul>
                   <div className="card-body botones-Eliminar-Modificar">
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleEliminar(objeto)}
-                    >
-                      <i className="fa-solid fa-trash-can"></i> Eliminar
+                    <button className="btn btn-primary"  onClick={() => handleShow(objeto)}>
+                      <i className="fa-solid fa-pencil-square"></i> Información
                     </button>
-                    <button className="btn btn-warning">
-                      <i className="fa-solid fa-pencil-square"></i> Modificar
-                    </button>
+                    {!objeto.entrega_bool && (
+                      <button className="btn btn-success" onClick={() => handleEnviarObjeto(objeto)}>
+                        <i className="fa-solid fa-pencil-square"></i> Enviar objeto
+                      </button>
+                    )}
+
+                    {objeto.devolucion_bool && (
+                      <button className="btn btn-warning" onClick={() => handleAceptarDevolucion(objeto)}>
+                        <i className="fa-solid fa-pencil-square"></i> Aceptar devolución
+                      </button>
+                    )}
+
+{/*                     {if objeto.devolucion_bool=True}:
+                    <button className="btn btn-primary">
+                      <i className="fa-solid fa-pencil-square"></i> Aceptar entrega
+                    </button> */}
+
+
                   </div>
                 </div>
               </div>
