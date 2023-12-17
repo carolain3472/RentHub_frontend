@@ -34,18 +34,25 @@ export function Message_user() {
     const [deleteChat, setDeleteChat] = useState(false)
 
 
+    // Estado para almacenar la cadena de búsqueda
+    const [searchTerm, setSearchTerm] = useState('');
+
     // Efecto para cargar los chats al montar el componente
     useEffect(() => {
         // Realiza la solicitud HTTP para obtener los chats
-        api
-            .post('chat/myMessages/', { "user_id": id_user })
-            .then(response => {
-                // Actualiza el estado con los datos de la respuesta
-                setChats(response.data.mensajes);
-            })
-            .catch(error => {
-                console.error('Error al obtener los chats:', error);
-            });
+        if (searchTerm == '') {
+            api
+                .post('chat/myMessages/', { "user_id": id_user })
+                .then(response => {
+                    // Actualiza el estado con los datos de la respuesta
+                    setChats(response.data.mensajes);
+                })
+                .catch(error => {
+                    console.error('Error al obtener los chats:', error);
+                });
+
+        }
+
     });
 
 
@@ -105,8 +112,6 @@ export function Message_user() {
 
 
 
-    // Estado para almacenar la cadena de búsqueda
-    const [searchTerm, setSearchTerm] = useState('');
 
     // Efecto para realizar la búsqueda cuando el usuario hace clic en el botón "Buscar"
     useEffect(() => {
@@ -122,10 +127,6 @@ export function Message_user() {
                 .catch(error => {
                     console.error('Error al buscar chats:', error);
                 })
-                .finally(() => {
-                    // Restablece el estado de searchTerm después de realizar la búsqueda
-                    setSearchTerm('');
-                });
         }
     }, [searchTerm]);
 
@@ -167,9 +168,6 @@ export function Message_user() {
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
-                            <div className="input-group-append">
-                                <button className="btn btn-outline-secondary" type="button" onClick={() => setSearchTerm(searchTerm)}>Buscar</button>
-                            </div>
                         </div>
 
                         <ul className="list-group">
