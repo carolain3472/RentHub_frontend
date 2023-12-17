@@ -56,7 +56,7 @@ export function Objetos_arrendados_page() {
     formData.append("objeto_id", objeto.objeto_arrendado.id);
 
     // Realiza la llamada al backend
-    const response = await api.post("/objetos/confirmacion-entrega-cliente-envio/", formData, {
+    const response = await api.post("users/objetos/confirmacion-entrega-cliente-envio/", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -107,7 +107,7 @@ const aceptarDevolucion = async (objeto) => {
   formData.append("objeto_id", objeto.objeto_arrendado.id);
 
   // Realiza la llamada al backend
-  const response = await api.post("/objetos/aceptacion-propietario-devolucion/", formData, {
+  const response = await api.post("users/objetos/aceptacion-propietario-devolucion/", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

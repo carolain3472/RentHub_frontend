@@ -46,7 +46,7 @@ export function Formulario_modificar(props) {
   
   const modificarobject = async (formData) => {
     try {
-      const response = await api.post('/objetos/actualizar-objeto/', formData, {
+      const response = await api.post('users/objetos/actualizar-objeto/', formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -53,7 +53,7 @@ export function Objetos_usuario_page() {
       formData.append("objeto_id", objeto.id);
 
       // Realiza la llamada al backend
-      const response = await api.post("/objetos/eliminar-objeto/", formData, {
+      const response = await api.post("users/objetos/eliminar-objeto/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

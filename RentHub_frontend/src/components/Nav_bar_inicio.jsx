@@ -13,17 +13,17 @@ import { FormularioObjeto } from "../components/FormularioObjeto";
  */
 
 export function Nav_bar_inicio() {
-    const [objetos, setObjetos] = useState([]);
-    const [docus, setDocus] = React.useState([]);
-  
-    const [show, setShow] = useState(false);
-  
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-  
-    const nombre = sessionStorage.getItem("nombre");
-    const apellido = sessionStorage.getItem("apellido");
-    const [selectedObject, setSelectedObject] = useState(null);
+  const [objetos, setObjetos] = useState([]);
+  const [docus, setDocus] = React.useState([]);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const nombre = sessionStorage.getItem("nombre");
+  const apellido = sessionStorage.getItem("apellido");
+  const [selectedObject, setSelectedObject] = useState(null);
 
   const handleLogout = async () => {
     try {
@@ -92,6 +92,12 @@ export function Nav_bar_inicio() {
             className="btn-crear-obj"
             onClick={handleShow}
           />
+        </section>
+
+        <section className="message_user">
+          <a className="message_icon" href="/mensajes_usuario">
+            <img src="/images/mensaje.png" alt="Icono de Mensaje" />
+          </a>
         </section>
 
         {/* obtener nombre de sesión */}
