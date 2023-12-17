@@ -1,0 +1,76 @@
+.chat-container {
+    display: flex;
+    height: 90vh;
+    /* Ajustado a 100vh para ocupar toda la altura */
+    width: 100vw;
+    /* Cambiado a 100vw para ocupar toda la anchura */
+
+}
+
+.chat-list {
+    width: 20vw;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #F7C75E;
+    height: 95vh;
+}
+
+.messages {
+    width: 78vw;
+    padding: 20px;
+    overflow-y: auto;
+    height: 95vh;
+}
+
+.custom-active {
+    background-color: #F0A500;
+    /* Reemplaza "tu-color-aquí" con el color que desees */
+    color: white;
+    /* Reemplaza "tu-color-de-texto-aquí" con el color que desees */
+}
+
+.btn-custom {
+    background-color: #F0A500;
+    /* Cambia el fondo al color que desees, por ejemplo, blanco */
+    color: white;
+    /* Cambia el color del texto al color que desees */
+    border-color: black;
+    /* Cambia el color del borde si es necesario */
+}
+
+.btn-custom:hover {
+    background-color: #ffc74f;
+    /* Cambia el fondo al color que desees al pasar el mouse sobre el botón */
+    color: black;
+    /* Cambia el color del texto al color que desees al pasar el mouse sobre el botón */
+    border-color: #ffae00;
+    /* Cambia el color del borde si es necesario al pasar el mouse sobre el botón */
+}
+
+.messages-container {
+    display: flex;
+    flex-direction: column;
+    /* Para que los mensajes estén apilados verticalmente */
+}
+
+/* Estilos generales para los mensajes */
+.message {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+}
+
+/* Estilos para mensajes a la derecha */
+.message.right {
+    align-self: flex-end;
+    background-color: #ffc74f;
+    color: #fff;
+}
+
+/* Estilos para mensajes a la izquierda */
+.message.left {
+    align-self: flex-start;
+    background-color: #a1ada1a9;
+    color: #000;
+}

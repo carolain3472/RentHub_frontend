@@ -21,7 +21,7 @@
   border: none;
   border-radius: 50%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  color: #000000; 
+  color: #000000;
   transition: 1s ease background-color, 1s ease color;
 }
 
@@ -53,4 +53,16 @@
 .btn-mid-sect-nav:hover {
   background-color: #fabd37;
   color: #3b3b3b;
+}
+
+
+.message_user {
+  width: 2.5vw;
+  height: 2.5vw;
+}
+
+.message_icon img {
+  /* Ajusta el tamaño de la imagen dentro de .message_icon */
+  width: 100%;
+  height: 100%;
 }
