@@ -44,7 +44,7 @@ export function Objetos_adquiridos_page() {
       formData.append("objeto_id", objeto.objeto_arrendado.id);
 
       // Realiza la llamada al backend
-      const response = await api.post("/objetos/aceptar-entrega-cliente/", formData, {
+      const response = await api.post("users/objetos/aceptar-entrega-cliente/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -77,7 +77,7 @@ export function Objetos_adquiridos_page() {
       formData.append("objeto_id", objeto.objeto_arrendado.id);
 
       // Realiza la llamada al backend
-      const response = await api.post("/objetos/enviar-propietario-devolucion/", formData, {
+      const response = await api.post("users/objetos/enviar-propietario-devolucion/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -111,7 +111,7 @@ export function Objetos_adquiridos_page() {
       formData.append("objeto_id", objeto.objeto_arrendado.id);
 
       // Realiza la llamada al backend
-      const response = await api.post("/objetos/consulta-cliente-objeto/", formData, {
+      const response = await api.post("users/objetos/consulta-cliente-objeto/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -197,7 +197,7 @@ export function Objetos_adquiridos_page() {
       formData.append("objeto_id", objeto.objeto_arrendado.id);
 
       // Realiza la llamada al backend
-      const response = await api.post("/objetos/cancelar-arrendamiento/", formData, {
+      const response = await api.post("users/objetos/cancelar-arrendamiento/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

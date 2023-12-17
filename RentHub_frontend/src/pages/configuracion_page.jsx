@@ -103,7 +103,7 @@ export function ConfiguracionPage() {
     // Realiza una solicitud POST al servidor para el inicio de sesión
     axios;
     api
-      .post("/login/update_contra/", { email: email, password: password })
+      .post("users/login/update_contra/", { email: email, password: password })
       .then((response) => {
         console.log("Al menos aqui entra para cambiar");
         // Cuando la solicitud es exitosa
