@@ -12,6 +12,7 @@ import { Objetos_usuario_page } from './pages/objetos_usuario_page'
 import { Objetos_arrendados_page } from './pages/objetos_arrendados'
 import { Objetos_adquiridos_page } from './pages/objetos_adquiridos'
 import { Boton_pago_page } from './pages/Boton_pago_page'
+import { Message_user } from './pages/message_user'
 
 
 /**Como crear rutas  
@@ -39,6 +40,8 @@ function App() {
       <Route path='/objetos_adquiridos' element ={<Objetos_adquiridos_page/>} />
 
       <Route path='/pagar-arrendamiento' element ={<Boton_pago_page/>} />
+
+      <Route path='/mensajes_usuario' element ={<Message_user/>} />
       
       
 

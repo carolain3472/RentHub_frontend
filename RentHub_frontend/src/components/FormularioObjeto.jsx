@@ -48,7 +48,7 @@ export function FormularioObjeto() {
   
   const createobject = async (formData) => {
     try {
-      const response = await api.post('/objetos/crear_objeto/', formData, {
+      const response = await api.post('users/objetos/crear_objeto/', formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

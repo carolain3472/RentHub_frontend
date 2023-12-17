@@ -4,7 +4,7 @@ import { api } from "../api/register_api";
 
 export const createobject = async (documento, nombre, descripcion, categoria, precio_arrendamiento, unidad_arrendamiento, imagen) => {
   try {
-    const response = await api.post('/objetos/crear_objeto/', { documento, nombre, descripcion, categoria, precio_arrendamiento, unidad_arrendamiento, imagen });
+    const response = await api.post('users/objetos/crear_objeto/', { documento, nombre, descripcion, categoria, precio_arrendamiento, unidad_arrendamiento, imagen });
     return response;
   } catch (error) {
     console.error("Error en la función createobject:", error);
@@ -15,13 +15,13 @@ export const createobject = async (documento, nombre, descripcion, categoria, pr
 
 export const listobject = async () => {
   const documento = sessionStorage.getItem("documento");
-  return api.post('/objetos/listar-objeto/', { documento });
+  return api.post('users/objetos/listar-objeto/', { documento });
 };
 
 export const listobjectuser = async () => {
   const documento = sessionStorage.getItem("documento");
   console.log(documento)
-  return api.post('/objetos/listar-objeto-propietario/', { documento });
+  return api.post('users/objetos/listar-objeto-propietario/', { documento });
   
 };
 
@@ -29,13 +29,13 @@ export const listobjectuser = async () => {
 export const listobjectadquirido = async () => {
   const documento = sessionStorage.getItem("documento");
   console.log(documento)
-  return api.post('/objetos/listar-objetos-adquiridos/', { documento });
+  return api.post('users/objetos/listar-objetos-adquiridos/', { documento });
   
 };
 
 export const listobjectsarrendados= async () => {
   const documento = sessionStorage.getItem("documento");
   console.log(documento)
-  return api.post('/objetos/listar-objetos-arrendados/', { documento });
+  return api.post('users/objetos/listar-objetos-arrendados/', { documento });
   
 };
