@@ -20,6 +20,10 @@ export function FormularioArrendamiento(props) {
     e.preventDefault();
 
     setTimeout(() => {
+      sessionStorage.setItem("objeto",  props.selectedObject.id);
+      sessionStorage.setItem("precio", props.selectedObject.precio_arrendamiento)
+      sessionStorage.setItem("tiempo_arrendamiento", tiempo_arrendamiento);
+      sessionStorage.setItem("unidad_arrendamiento", props.selectedObject.unidad_arrendamiento);
       // Puedes almacenar el objeto en el estado local antes de redirigir
       setSelectedObject(props.selectedObject);
       console.log(props.selectedObject)
@@ -27,10 +31,6 @@ export function FormularioArrendamiento(props) {
      navigate("/pagar-arrendamiento");
     }, 3000);
 
-
-    sessionStorage.setItem("objeto",  props.selectedObject.unidad_arrendamiento);
-    sessionStorage.setItem("tiempo_arrendamiento", tiempo_arrendamiento);
-    sessionStorage.setItem("unidad_arrendamiento", props.selectedObject.unidad_arrendamiento);
   };
 
   return (
@@ -57,7 +57,7 @@ export function FormularioArrendamiento(props) {
             type="number"
             id="tiempo_arrendamiento"
             value={tiempo_arrendamiento}
-            placeholder="Precio del articulo x Unidad"
+            placeholder="Ingresa el tiempo que tendrás arrendado el objeto"
             onChange={(e) => setTiempoArrendamiento(e.target.value)}
           />
         </div>
