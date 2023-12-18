@@ -61,8 +61,9 @@ export const Formulario = () => {
           sessionStorage.setItem("documento", response.data.documento);
           sessionStorage.setItem("nombre", response.data.nombre);
           sessionStorage.setItem("apellido", response.data.apellido);
+          sessionStorage.setItem("id", response.data.id);
           sessionStorage.setItem("refresh", response.data.refresh);
-          console.log(sessionStorage.getItem("documento"))
+          console.log(sessionStorage.getItem("id"))
 
           localStorage.setItem("authToken", response.data.token);
           navigate("/objetos_arrendamiento");
