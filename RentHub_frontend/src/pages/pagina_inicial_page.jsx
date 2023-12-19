@@ -70,7 +70,7 @@ export function Pagina_inicial_page() {
         <div className="container-fluid d-flex justify-content-center align-items-center">
           <div className="row justify-content-start">
             {objetos.map((objeto) => (
-              <div key={objeto.id} className="col-2 mb-4">
+              <div key={objeto.id} className="col-lg col-md col-sm mb-5">
                 <div className="card card-custom">
                   <img
                     src={objeto.objeto_imagen}
@@ -103,6 +103,7 @@ export function Pagina_inicial_page() {
                     <button
                       className="btn btn-success"
                       onClick={() => handleShowArrendar(objeto)}
+                      style={{marginBottom:"10px"}}
                     >
                       <i className="fa-solid fa-pencil-square"></i> Arrendar
                     </button>

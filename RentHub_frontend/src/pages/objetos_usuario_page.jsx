@@ -124,7 +124,7 @@ export function Objetos_usuario_page() {
         <div className="container-fluid d-flex justify-content-center align-items-center">
           <div className="row justify-content-start">
             {objetos.map((objeto) => (
-              <div key={objeto.id} className="col-2 md-3 mb-4">
+              <div key={objeto.id} className="col-lg col-md col-sm mb-5">
                 <div className="card card-custom">
                   <img
                     src={objeto.objeto_imagen}

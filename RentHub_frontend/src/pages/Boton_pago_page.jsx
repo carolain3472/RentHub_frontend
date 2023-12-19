@@ -1,12 +1,10 @@
 import React from 'react'
-import { Boton_pagar } from '../components/boton_pagar'
+import { Boton_pagar } from '../components/Boton_pagar.jsx'
 
 export function Boton_pago_page() {
   return (
     <div>
-        <div>Boton_pago_page</div>
-        <Boton_pagar/>
-        
+        <Boton_pagar/>     
     </div>
   )
 }

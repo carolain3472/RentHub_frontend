@@ -1,0 +1,17 @@
+body {
+  background-color: rgb(255, 233, 206);
+}
+
+.contenedor-pago {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100vw;
+}
+
+.tarjeta-pago {
+  display: inline-block;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #dadada;
+}
