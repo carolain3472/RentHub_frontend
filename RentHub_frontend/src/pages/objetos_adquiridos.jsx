@@ -265,7 +265,7 @@ export function Objetos_adquiridos_page() {
           }}
         >
           <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
-            Objetos que tienes arrendados
+            Objetos que me han arrendado
           </h1>
 
           <div className="container-fluid d-flex justify-content-center align-items-center">
