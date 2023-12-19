@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
 export function StripeCheckoutForm({ monto }) {
+  const precioFinal= sessionStorage.getItem("precio")*sessionStorage.getItem("tiempo_arrendamiento");
   const [state, setState] = useState({
     number: "",
     expiry: "",
@@ -111,7 +112,7 @@ export function StripeCheckoutForm({ monto }) {
           body: JSON.stringify({
             stripeEmail: sessionStorage.getItem("email"),
             stripeToken: token.id,
-            monto: monto,
+            monto: precioFinal,
             usuario: sessionStorage.getItem("id"),
             nombre: sessionStorage.getItem("nombre"),
             arrendamiento: 5,
