@@ -35,7 +35,7 @@ function App() {
       <Route path='/contact-us' element ={<Contact_us_page/>} />
       <Route path='/objetos_arrendamiento' element ={<Pagina_inicial_page/>} />
       <Route path='/configuracion_perfil' element ={<ConfiguracionPage/>} />
-      <Route path='/objetos_propiertario' element ={<Objetos_usuario_page/>} />
+      <Route path='/objetos_propietario' element ={<Objetos_usuario_page/>} />
       <Route path='/objetos_arrendados' element ={<Objetos_arrendados_page/>} />
       <Route path='/objetos_adquiridos' element ={<Objetos_adquiridos_page/>} />
 

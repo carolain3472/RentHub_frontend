@@ -5,6 +5,7 @@ import { listobjectuser } from "../api/objetcts_api";
 import Swal from "sweetalert2";
 import { api } from "../api/register_api";
 import { Nav_bar_inicio } from "../components/Nav_bar_inicio";
+import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
 
 import "../scss/pagina_inicial_style.css";
 import "../scss/nav_bar_objetos_style.css";
@@ -106,6 +107,31 @@ export function Objetos_usuario_page() {
     fetchData();
   }, []);
 
+  const libraries = ["places"];
+
+  const mapContainerStyle = {
+    width: "16rem",
+    height: "15rem",
+  };
+
+  const center = {
+    lat: 3.375685, // default latitude
+    lng: -76.529917, // default longitude
+  };
+
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: "AIzaSyDewmG857FFU-JG8KLANBBhE8qY-dApVoI",
+    libraries,
+  });
+
+  if (loadError) {
+    return <div>Error loading maps</div>;
+  }
+
+  if (!isLoaded) {
+    return <div>Loading maps</div>;
+  }
+
   return (
     <main>
       <Nav_bar_inicio />
@@ -146,6 +172,15 @@ export function Objetos_usuario_page() {
                     <li className="list-group-item">
                       Unidad de Arrendamiento: {objeto.unidad_arrendamiento}
                     </li>
+                    <li className="list-group-item">
+                      <GoogleMap
+                        mapContainerStyle={mapContainerStyle}
+                        zoom={16}
+                        center={center}
+                      >
+                        <MarkerF position={center} />
+                      </GoogleMap>
+                      </li>
                   </ul>
                   <div className="card-body botones-Eliminar-Modificar">
                     <button

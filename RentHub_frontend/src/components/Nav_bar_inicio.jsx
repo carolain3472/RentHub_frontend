@@ -113,7 +113,7 @@ export function Nav_bar_inicio() {
             <Dropdown.Item className="menu-item" href="/objetos_arrendamiento">
               Objetos disponibles
             </Dropdown.Item>
-            <Dropdown.Item className="menu-item" href="/objetos_propiertario">
+            <Dropdown.Item className="menu-item" href="/objetos_propietario">
               Objetos propios disponibles
             </Dropdown.Item>
             <Dropdown.Item className="menu-item" href="/objetos_arrendados">
@@ -135,7 +135,7 @@ export function Nav_bar_inicio() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>¿Qué quieres alquilar?</Modal.Title>
+          <Modal.Title>¿Qué quieres ofrecer?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <FormularioObjeto />
