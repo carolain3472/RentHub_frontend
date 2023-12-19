@@ -170,6 +170,15 @@ export function Formulario_modificar(props) {
             onChange={fileHandler}
           />
         </div>
+        <div>
+          <label className="form-label">Direccion:</label>
+          <input
+            className="form-input"
+            type="text"
+            id="direccion"
+            placeholder="Direccion de residencia"
+          />
+        </div>
 
         <button className="form-submit-button" type="submit">Guardar</button>
       </form>

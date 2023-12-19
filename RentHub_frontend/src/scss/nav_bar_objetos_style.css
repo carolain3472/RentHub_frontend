@@ -9,6 +9,11 @@
   width: 100vw;
 }
 
+.navbar-brand {
+  font-size: 1.2em;
+  
+}
+
 .mid-sect-nav {
   align-items: center;
   display: flex;
