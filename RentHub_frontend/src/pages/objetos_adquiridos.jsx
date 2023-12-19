@@ -271,7 +271,7 @@ export function Objetos_adquiridos_page() {
           <div className="container-fluid d-flex justify-content-center align-items-center">
             <div className="row justify-content-start">
               {objetos.map((objeto) => (
-                <div key={objeto.id} className="col-2 mb-4">
+                <div key={objeto.id} className="col-lg col-md col-sm mb-5">
                   <div className="card card-custom">
                     <img
                       src={objeto.objeto_arrendado.objeto_imagen}
