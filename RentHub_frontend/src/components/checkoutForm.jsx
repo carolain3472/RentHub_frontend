@@ -4,6 +4,7 @@ import "react-credit-cards-2/dist/es/styles-compiled.css";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import { api } from "../api/register_api";
 
 import "../scss/boton_pagar_style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -44,6 +45,20 @@ export function StripeCheckoutForm({ monto }) {
       ...state,
       focus: e.target.name,
     });
+  };
+
+  const arrendarobject = async (formData) => {
+    try {
+      const response = await api.post('users/objetos/arrendar-objeto/', formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response;
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+      throw error; // Puedes manejar el error según tus necesidades
+    }
   };
 
   const processPayment = async () => {
@@ -88,7 +103,7 @@ export function StripeCheckoutForm({ monto }) {
         console.log(token);
       } else {
         // Enviar el token y otra información al backend para procesar el pago
-        const response = await fetch("http://localhost:3000/payment", {
+        const response = await fetch("https://pago-microservice.onrender.com/payment", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -144,7 +159,7 @@ export function StripeCheckoutForm({ monto }) {
               }).then(() => {
                 // Recarga la página después de 2 segundos
                 setTimeout(() => {
-                  navigate("/objetos_arrendados");
+                  navigate("/objetos_adquiridos");
                 }, 3000);
               });
             } else {

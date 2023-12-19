@@ -158,7 +158,7 @@ const aceptarDevolucion = async (objeto) => {
         }}
       >
         <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
-          Objetos que personas me han arrendado
+          Objetos que he arrendado:
         </h1>
 
         <div className="container-fluid d-flex justify-content-center align-items-center">
