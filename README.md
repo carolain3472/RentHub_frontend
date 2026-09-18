@@ -1,32 +1,42 @@
-# RENT-HUB
+# RentHub — Web client
 
-Para ejecutar el back (con gitbash):
+React + Vite frontend for the [RentHub](https://github.com/carolain3472/RentHub_backend)
+peer-to-peer rental marketplace.
 
-python3 -m venv venv
+## Screens
 
-source venv/Scripts/activate
+| Area | Screens |
+|---|---|
+| Public | Landing, About us, Register, Login |
+| Listings | Create object, Modify object, Rental form |
+| My activity | My objects, Objects I rented out, Objects I acquired |
+| Account | Settings, Messages |
+| Payment | Checkout form, Pay button — talks to the payment service |
 
-pip install -r requirements.txt
+The rental screens follow the two-sided handover protocol the API defines: each
+side sees only the action that is theirs to take at that point in the rental.
 
+## The rest of the system
 
-# Crear migraciones
+| Repository | Role |
+|---|---|
+| [RentHub_backend](https://github.com/carolain3472/RentHub_backend) | Django REST API |
+| **RentHub_frontend** (this one) | React + Vite client |
+| [RentHub_pago_microservicio](https://github.com/carolain3472/RentHub_pago_microservicio) | Node payment service, Stripe |
 
-python manage.py makemigrations modulo_login_renthub
+## Running it
 
-python manage.py migrate
-
-# Correr el proyecto
-
-python manage.py runserver
-
---------------------------------------------------------------
-
-# Frontend
-
-Para ejecutar el front (con gitbash):
-
-cd frontend
-
+```bash
+cd RentHub_frontend
 npm install
-
 npm run dev
+```
+
+The API base URL is configured in the client's API module; point it at a running
+backend before logging in.
+
+## Known limitations
+
+- No automated tests
+- API base URL is hardcoded rather than read from the environment
+- No loading or error states on several forms
